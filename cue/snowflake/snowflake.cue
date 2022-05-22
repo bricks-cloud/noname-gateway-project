@@ -4,10 +4,10 @@ deployment: {
 	terraform: {
 		required_providers: {
 			snowflake: {
-				source : "chanzuckerberg/snowflake"
-				version : "0.33.1"
-    		}
-  		}
+				source:  "chanzuckerberg/snowflake"
+				version: "0.33.1"
+			}
+		}
 	}
 
 	provider: {

@@ -1,5 +1,25 @@
 module github.com/bricks-cloud/bricks-cli
 
-go 1.16
+go 1.17
 
-require cuelang.org/go v0.4.3
+require (
+	cuelang.org/go v0.4.3
+	github.com/hashicorp/terraform-exec v0.16.1
+)
+
+require (
+	github.com/cockroachdb/apd/v2 v2.0.1 // indirect
+	github.com/google/uuid v1.2.0 // indirect
+	github.com/hashicorp/go-version v1.4.0 // indirect
+	github.com/hashicorp/terraform-json v0.13.0 // indirect
+	github.com/kr/pretty v0.2.1 // indirect
+	github.com/kr/text v0.2.0 // indirect
+	github.com/mpvl/unique v0.0.0-20150818121801-cbe035fff7de // indirect
+	github.com/pkg/errors v0.9.1 // indirect
+	github.com/stretchr/testify v1.7.0 // indirect
+	github.com/zclconf/go-cty v1.10.0 // indirect
+	golang.org/x/net v0.0.0-20210326060303-6b1517762897 // indirect
+	golang.org/x/text v0.3.7 // indirect
+	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
+	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
+)

@@ -1,22 +1,30 @@
 package main
 
 import (
-	"fmt"
+	"context"
+	"flag"
+	"log"
 
-	"cuelang.org/go/cue/cuecontext"
+	"github.com/bricks-cloud/bricks-cli/pkg/cue"
+	"github.com/bricks-cloud/bricks-cli/pkg/terraform"
 )
 
-func main() {
-	ctx := cuecontext.New()
+var (
+	filePath string
+)
 
-	v := ctx.CompileString(`
-		a: 2
-		b: 3
-		"a+b": a + b
-	`)
-	js, err := v.MarshalJSON()
+func init() {
+	flag.StringVar(&filePath, "file", "", "the path of cue file")
+}
+func main() {
+	flag.Parse()
+	js, err := cue.MarshalJSON(filePath)
 	if err != nil {
-		fmt.Println(err)
+		log.Fatalf("Failed to Marshal cue to json: %v", err)
 	}
-	fmt.Println(string(js))
+
+	if err := terraform.Run(context.Background(), js); err != nil {
+		log.Fatal(err)
+	}
+	log.Printf("Successful Deploy!")
 }

@@ -5,7 +5,7 @@ snowflake.deployment & {
 		username: "testuser"
 		account:  "testaccount"
 		region:   "testregion"
-        password: "fake"
+		password: "fake"
 	}
 	resource: snowflake_user: {
 		"test": {
