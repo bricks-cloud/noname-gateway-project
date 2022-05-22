@@ -24,12 +24,11 @@ var terraformExecPath string = "terraform"
 // 	}
 // }
 
-func Run(ctx context.Context, tfContent []byte) error {
-	workingDir := os.TempDir()
-	if err := os.WriteFile(filepath.Join(workingDir, "new.tf.json"), tfContent, 0644); err != nil {
+func Run(ctx context.Context, workdir string, tfContent []byte) error {
+	if err := os.WriteFile(filepath.Join(workdir, "new.tf.json"), tfContent, 0644); err != nil {
 		return err
 	}
-	tf, err := tfexec.NewTerraform(workingDir, terraformExecPath)
+	tf, err := tfexec.NewTerraform(workdir, terraformExecPath)
 	if err != nil {
 		return fmt.Errorf("error running NewTerraform: %s", err)
 	}

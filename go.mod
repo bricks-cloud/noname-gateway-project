@@ -9,6 +9,8 @@ require (
 
 require (
 	github.com/cockroachdb/apd/v2 v2.0.1 // indirect
+	github.com/emicklei/proto v1.6.15 // indirect
+	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b // indirect
 	github.com/google/uuid v1.2.0 // indirect
 	github.com/hashicorp/go-version v1.4.0 // indirect
 	github.com/hashicorp/terraform-json v0.13.0 // indirect
@@ -16,6 +18,7 @@ require (
 	github.com/kr/text v0.2.0 // indirect
 	github.com/mpvl/unique v0.0.0-20150818121801-cbe035fff7de // indirect
 	github.com/pkg/errors v0.9.1 // indirect
+	github.com/protocolbuffers/txtpbfmt v0.0.0-20201118171849-f6a6b3f636fc // indirect
 	github.com/stretchr/testify v1.7.0 // indirect
 	github.com/zclconf/go-cty v1.10.0 // indirect
 	golang.org/x/net v0.0.0-20210326060303-6b1517762897 // indirect

@@ -1,21 +1,15 @@
 package cue
 
 import (
-	"fmt"
-	"os"
+	"path/filepath"
 
 	"cuelang.org/go/cue/cuecontext"
+	"cuelang.org/go/cue/load"
 )
 
-func MarshalJSON(filepath string) ([]byte, error) {
+func MarshalJSON(file string) ([]byte, error) {
 	ctx := cuecontext.New()
-
-	data, err := os.ReadFile(filepath)
-	if err != nil {
-		return nil, fmt.Errorf("failed to read cue file: %v", err)
-	}
-
-	v := ctx.CompileBytes(data)
-
+	s := load.Instances([]string{filepath.Base(file)}, &load.Config{Dir: filepath.Dir(file)})[0]
+	v := ctx.BuildInstance(s)
 	return v.MarshalJSON()
 }
