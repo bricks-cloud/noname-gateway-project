@@ -6,8 +6,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/bricks-cloud/bricks-cli/pkg/cue"
-	"github.com/bricks-cloud/bricks-cli/pkg/terraform"
+	"github.com/bricks-cloud/bricks/pkg/cue"
+	"github.com/bricks-cloud/bricks/pkg/terraform"
 )
 
 var (

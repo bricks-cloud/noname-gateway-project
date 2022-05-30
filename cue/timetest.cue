@@ -1,4 +1,6 @@
-import "github.com/bricks-cloud/bricks-cli/cue/time"
+package cue
+
+import "github.com/bricks-cloud/bricks/cue/time"
 
 time.deployment & {
 	resource: time_offset: {

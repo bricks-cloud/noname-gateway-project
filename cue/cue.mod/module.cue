@@ -1,1 +1,1 @@
-module: "github.com/bricks-cloud/bricks-cli/cue"
+module: "github.com/bricks-cloud/bricks/cue"

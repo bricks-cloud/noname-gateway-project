@@ -1,4 +1,6 @@
-import "github.com/bricks-cloud/bricks-cli/cue/snowflake"
+package cue
+
+import "github.com/bricks-cloud/bricks/cue/snowflake"
 
 snowflake.deployment & {
 	provider: snowflake: {
