@@ -1,3 +1,13 @@
+brews:
+  - tap:
+      owner: bricks-cloud
+      name: homebrew-bricks
+      branch: main
+
+    folder: Formula
+    homepage: https://github.com/bricks-cloud/homebrew-bricks
+
+
 before:
   hooks:
     - go mod vendor
