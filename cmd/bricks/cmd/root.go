@@ -21,6 +21,7 @@ func init() {
 
 	rootCmd.AddCommand(
 		deployCmd,
+		importCmd,
 	)
 
 	if err := viper.BindPFlags(rootCmd.PersistentFlags()); err != nil {
