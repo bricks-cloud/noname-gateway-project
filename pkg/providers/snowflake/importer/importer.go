@@ -9,12 +9,25 @@ import (
 	sf "github.com/snowflakedb/gosnowflake"
 )
 
-type SnowflakeGenerator struct {
+type Config struct {
+	User      string
+	Password  string
+	Database  string
+	Schema    string
+	Account   string
+	Warehouse string
 }
 
-// Run on show databases and create for each resource
-func (g SnowflakeGenerator) createDatabases(ctx context.Context) error {
-	cfg := &sf.Config{}
+// Run on show databases and create for each resource.
+func CreateDatabases(ctx context.Context, c *Config) error {
+	cfg := &sf.Config{
+		User:      c.User,
+		Password:  c.Password,
+		Database:  c.Database,
+		Schema:    c.Schema,
+		Account:   c.Account,
+		Warehouse: c.Warehouse,
+	}
 	dsn, err := sf.DSN(cfg)
 	if err != nil {
 		return err
