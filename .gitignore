@@ -2,3 +2,4 @@
 .workdir
 vendor
 dist/
+.DS_Store

@@ -3,7 +3,6 @@ package cmd
 import (
 	"os"
 
-	"github.com/bricks-cloud/bricks/logger"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -23,6 +22,10 @@ func init() {
 		deployCmd,
 	)
 
+	rootCmd.AddCommand(
+		initCmd,
+	)
+
 	if err := viper.BindPFlags(rootCmd.PersistentFlags()); err != nil {
 		panic(err)
 	}
@@ -31,20 +34,13 @@ func init() {
 var rootCmd = &cobra.Command{
 	Use:   "bricks",
 	Short: "Bricks is a Revolutionary Infrastructure As Code Tool",
-	Long: `A Revolutionary Infrastructure as Code Tool built with
-				  love by Bricks Cloud Technologies, Inc. and friends in Go.`,
+	Long:  "A Revolutionary Infrastructure as Code Tool built with love by Bricks Cloud Technologies, Inc. and friends in Go.",
 	Run: func(cmd *cobra.Command, args []string) {
 	},
 }
 
 func Execute() {
-	var (
-		lg = logger.New()
-	)
-
-	if err := rootCmd.Execute(); err != nil {
-		lg.Fatal().Err(err).Msg("failed to execute command")
-	}
+	rootCmd.Execute()
 }
 
 // func excludeFilesAndDirectories(path string, d fs.DirEntry) bool {
