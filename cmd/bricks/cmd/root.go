@@ -20,6 +20,11 @@ func init() {
 
 	rootCmd.AddCommand(
 		deployCmd,
+		importCmd,
+	)
+
+	rootCmd.AddCommand(
+		initCmd,
 	)
 
 	rootCmd.AddCommand(
