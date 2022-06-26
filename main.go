@@ -1,128 +1,60 @@
 package main
 
 import (
+	"context"
 	"fmt"
 
 	example "github.com/bricks-cloud/bricks/commons"
+	"github.com/bricks-cloud/bricks/compiler"
 	plugin "github.com/hashicorp/go-plugin"
-
-	"cuelang.org/go/cue/cuecontext"
-	"cuelang.org/go/cue/load"
 )
 
 type Service struct {
-	name        string `cue:"name"`
-	description string `cue:"description"`
-	url         string `cue:"url"`
-	// Routes      []Route `json:"routes"`
+	Name        string
+	Description string
+	Url         string
+	Routes      []Route
 }
 
 type Route struct {
-	name        string
-	description string
-	paths       []string
+	Name        string
+	Description string
+	Paths       []string
+	Id          int
+}
+
+type T struct {
+	Selector string
+	Type     string
 }
 
 func main() {
+	v, _ := compiler.Build(context.Background(), "./cue/bricks", nil)
 
-	// We need a cue.Context, the New'd return is ready to use
-	ctx := cuecontext.New()
+	var mappings []T
 
-	// The entrypoints are the same as the files you'd specify at the command line
-	entrypoints := []string{"./cue/bricks/client.cue"}
+	fields, _ := v.Fields()
+	for _, e := range fields {
+		var s = e.Selector.String()
+		t, _ := v.Lookup(s + ".$bricks.type").String()
+		mappings = append(mappings, T{Selector: s, Type: t})
+	}
 
-	// Load Cue files into Cue build.Instances slice
-	// the second arg is a configuration object, we'll see this later
-	bis := load.Instances(entrypoints, nil)
+	for _, m := range mappings {
+		if m.Type == "route" {
+			t := &Route{}
+			v.Lookup(m.Selector).Decode(t)
+			fmt.Println("We got a Route:", t)
+		} else if m.Type == "service" {
+			t := &Service{}
+			v.Lookup(m.Selector).Decode(t)
+			fmt.Println("We got a Service:", t)
+		} else {
+			fmt.Println("Unkown type:", m)
 
-	// Loop over the instances, checking for errors and printing
-	for _, bi := range bis {
-		// check for errors on the instance
-		// these are typically parsing errors
-		if bi.Err != nil {
-			fmt.Println("Error during load:", bi.Err)
-			continue
-		}
-
-		// Use cue.Context to turn build.Instance to cue.Instance
-		value := ctx.BuildInstance(bi)
-		if value.Err() != nil {
-			fmt.Println("Error during build:", value.Err())
-			continue
-		}
-
-		// print the error
-		fmt.Println("root value:", value)
-
-		myService := &Service{}
-		_ = value.Decode(myService)
-		fmt.Println("myService...", myService)
-
-		// var myService *Service
-		// myService = new(Service)
-		// fmt.Println(value.Decode(&myService))
-		// fmt.Println(myService)
-
-		// Validate the value
-		err := value.Validate()
-		if err != nil {
-			fmt.Println("Error during validate:", err)
-			continue
 		}
 	}
 
-	// Loads cue file into go
-	// v, err := compiler.Build(context.Background(), "./cue/bricks", nil)
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
-
-	// taken from cue docs...
-	// 	const config = `
-	// msg:   "Hello \(place)!"
-	// place: string | *"world" // "world" is the default.
-	// `
-	// 	var r cue.Runtime
-
-	// 	instance, _ := r.Compile("test", config)
-
-	// 	str, _ := instance.Lookup("msg").String()
-
-	// 	fmt.Println(str)
-
-	// 	type ab struct{ A, B int }
-
-	// 	var x ab
-
-	// 	i, _ := r.Compile("test", `{A: 2, B: 4}`)
-	// 	_ = i.Value().Decode(&x)
-	// 	fmt.Println(x)
-
-	// 	i, _ = r.Compile("test", `{B: "foo"}`)
-	// 	_ = i.Value().Decode(&x)
-	// 	fmt.Println(x)
-
-	// way 1
-	// var myService *Service
-	// myService = new(Service)
-	// fmt.Println(v.Decode(&myService))
-	// fmt.Println(myService)
-
-	// another way 2
-	// var myService Service
-	// _ = v.Decode(&myService)
-	// fmt.Println(myService)
-
-	// Use the loaded files and turn into go shemas ...
-	// ...
-
-	// controller := flow.New(&flow.Config{
-	// 	FindHiddenTasks: true,
-	// }, v.Cue(), ioTaskFunc)
-
-	// if err := controller.Run(context.Background()); err != nil {
-	// 	fmt.Println(err)
-	// }
 }
 
 // func ioTaskFunc(flowVal cue.Value) (flow.Runner, error) {

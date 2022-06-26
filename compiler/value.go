@@ -146,6 +146,10 @@ func (v *Value) Fields(opts ...cue.Option) ([]Field, error) {
 	return fields, nil
 }
 
+func (v *Value) Type() *Value {
+	return v.Lookup("$bricks")
+}
+
 // Proxy function to the underlying cue.Value
 func (v *Value) Expr() (cue.Op, []*Value) {
 	op, expr := v.val.Expr()

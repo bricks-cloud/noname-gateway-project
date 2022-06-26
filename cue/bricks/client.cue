@@ -1,46 +1,60 @@
 package bricks
 
-// #Client: {
-// 	$bricks: type: _name: "Client"
-// 	name: string
-// }
-
-// #Resource: {
-// 	$bricks: type: _name: "Resource"
-// 	name: string
-// }
-
-// spotifyClient: #Client & {
-// 	name: "spotifyClientNameBLahblah"
-// }
-
 #service: {
+    $bricks: type: "service"
 	name: string
 	description?: string
 	url: string
-	// routes: [...#route]
+	routes: [...#route]
 }
 
 #route: {
+    $bricks: type: "route"
 	name: string
 	description?: string
 	paths: [...string]
+    id: int
 }
 
 config: #service & {
     name: "my-service"
     description: "mock description for service"
     url: "sample.com/my-service"
-    // routes: [
-    //     { 
-    //     name: "my-first-route"
-    //     paths: ["/first", "/route"]
-    //     },
-    //     {
-    //     name: "my-second-route"
-    //     paths: ["/home"]
-    //     }
-    // ]
+    routes: [
+        { 
+        name: "my-first-route"
+        paths: ["/first", "/route"]
+        },
+        {
+        name: "my-second-route"
+        paths: ["/home"]
+        }
+    ]
+}
+
+config2: #route & {
+    name: "my-route"
+    description: "mock description for route"
+    paths: ["/path"]
+    id: 12466
+}
+
+spikesConfig: #route & {
+    name: "spike lu's route"
+    description: "bada boom bada bee"
+    paths: ["/spike-lu-path"]
+    id: 99134
+}
+
+spikesService: #service & {
+    name: "spike-service"
+    url: "spike.com/mad"
+    routes: [
+        { 
+        name: "spike.com/emo"
+        paths: ["/sad", "/bad"]
+        },
+    ]
 }
 
 // Vanguard is a data monitor alerting system for SQL databses
