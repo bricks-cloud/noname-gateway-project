@@ -11,9 +11,9 @@ import (
 )
 
 type Service struct {
-	name        string `cue:"name"`
-	description string `cue:"description"`
-	url         string `cue:"url"`
+	Name        string
+	Description string
+	Url         string
 	// Routes      []Route `json:"routes"`
 }
 
@@ -55,7 +55,7 @@ func main() {
 		fmt.Println("root value:", value)
 
 		myService := &Service{}
-		_ = value.Decode(myService)
+		_ = value.Lookup("config").Decode(myService)
 		fmt.Println("myService...", myService)
 
 		// var myService *Service
