@@ -28,6 +28,10 @@ type T struct {
 	Type     string
 }
 
+// Constants to map with CUE bricks.type selectors
+const ROUTE_TYPE = "route"
+const SERVICE_TYPE = "service"
+
 func main() {
 	v, _ := compiler.Build(context.Background(), "./cue/bricks", nil)
 
@@ -41,11 +45,11 @@ func main() {
 	}
 
 	for _, m := range mappings {
-		if m.Type == "route" {
+		if m.Type == ROUTE_TYPE {
 			t := &Route{}
 			v.Lookup(m.Selector).Decode(t)
 			fmt.Println("We got a Route:", t)
-		} else if m.Type == "service" {
+		} else if m.Type == SERVICE_TYPE {
 			t := &Service{}
 			v.Lookup(m.Selector).Decode(t)
 			fmt.Println("We got a Service:", t)

@@ -16,6 +16,10 @@ package bricks
     id: int
 }
 
+#fake: {
+    field: int
+}
+
 config: #service & {
     name: "my-service"
     description: "mock description for service"
@@ -55,6 +59,10 @@ spikesService: #service & {
         paths: ["/sad", "/bad"]
         },
     ]
+}
+
+fake: #fake & {
+    field: 1
 }
 
 // Vanguard is a data monitor alerting system for SQL databses
