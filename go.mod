@@ -1,4 +1,4 @@
-module github.com/bricks-cloud/bricks
+module github.com/bricks-cloud/noname-gateway-project
 
 go 1.17
 
