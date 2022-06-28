@@ -1,26 +1,27 @@
 package bricks
 
-#service: {
+#Service: {
+    // TODO: Use hidden fields
     $bricks: type: "service"
 	name: string
 	description?: string
 	url: string
-	routes: [...#route]
+	routes: [...#Route]
 }
 
-#route: {
+#Route: {
+    // TODO: Use hidden fields
     $bricks: type: "route"
 	name: string
 	description?: string
 	paths: [...string]
-    id: int
 }
 
 #fake: {
     field: int
 }
 
-config: #service & {
+config: #Service & {
     name: "my-service"
     description: "mock description for service"
     url: "sample.com/my-service"
@@ -36,21 +37,7 @@ config: #service & {
     ]
 }
 
-config2: #route & {
-    name: "my-route"
-    description: "mock description for route"
-    paths: ["/path"]
-    id: 12466
-}
-
-spikesConfig: #route & {
-    name: "spike lu's route"
-    description: "bada boom bada bee"
-    paths: ["/spike-lu-path"]
-    id: 99134
-}
-
-spikesService: #service & {
+spikesService: #Service & {
     name: "spike-service"
     url: "spike.com/mad"
     routes: [

@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/bricks-cloud/bricks/compiler"
+	"github.com/bricks-cloud/noname-gateway-project/compiler"
 )
 
 type Service struct {
@@ -26,35 +26,44 @@ type T struct {
 	Type     string
 }
 
-// Constants to map with CUE bricks.type selectors
-const ROUTE_TYPE = "route"
-const SERVICE_TYPE = "service"
+// TODO: Move to constants file
+const (
+	SERVICE_TYPE = "service"
+)
 
 func main() {
-	v, _ := compiler.Build(context.Background(), "./cue", nil)
+	v, error := compiler.Build(context.Background(), "./cue", nil)
 
-	var mappings []T
-
-	fields, _ := v.Fields()
-	for _, e := range fields {
-		var s = e.Selector.String()
-		t, _ := v.Lookup(s + ".$bricks.type").String()
-		mappings = append(mappings, T{Selector: s, Type: t})
+	if error != nil {
+		panic(error)
 	}
 
-	for _, m := range mappings {
-		if m.Type == ROUTE_TYPE {
-			t := &Route{}
-			v.Lookup(m.Selector).Decode(t)
-			fmt.Println("We got a Route:", t)
-		} else if m.Type == SERVICE_TYPE {
-			t := &Service{}
-			v.Lookup(m.Selector).Decode(t)
-			fmt.Println("We got a Service:", t)
-		} else {
-			fmt.Println("Unkown type:", m)
+	schemas := genSchemas(v)
+	fmt.Println("Schemas: ", schemas)
+}
 
+func genSchemas(v *compiler.Value) []Service {
+	// TODO: Once we have more types, schemas implement common interface to make list generic
+	var schemas = []Service{}
+	fields, error := v.Fields()
+
+	if error != nil {
+		panic(error)
+	}
+
+	for _, field := range fields {
+		var selector = field.Selector.String()
+		schemaType, _ := v.Lookup(selector + ".$bricks.type").String()
+		switch schemaType {
+		case SERVICE_TYPE:
+			service := &Service{}
+			v.Lookup(selector).Decode(service)
+			fmt.Println("We got a Service:", service)
+			schemas = append(schemas, *service)
+		default:
+			fmt.Println("Unknown type: ", selector)
 		}
 	}
 
+	return schemas
 }
