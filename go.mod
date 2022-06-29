@@ -5,6 +5,7 @@ go 1.17
 require (
 	cuelang.org/go v0.4.3
 	github.com/KromDaniel/jonson v0.0.0-20180630143114-d2f9c3c389db
+	github.com/rs/zerolog v1.27.0
 	github.com/stretchr/testify v1.7.1
 )
 
