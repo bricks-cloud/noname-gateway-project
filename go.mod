@@ -5,6 +5,7 @@ go 1.17
 require (
 	cuelang.org/go v0.4.3
 	github.com/KromDaniel/jonson v0.0.0-20180630143114-d2f9c3c389db
+	github.com/julienschmidt/httprouter v1.3.0
 	github.com/rs/zerolog v1.27.0
 	github.com/stretchr/testify v1.7.1
 )
@@ -82,7 +83,6 @@ require (
 	github.com/pierrec/lz4/v4 v4.1.11 // indirect
 	github.com/pkg/browser v0.0.0-20210911075715-681adbf594b8 // indirect
 	github.com/posener/complete v1.2.1 // indirect
-	github.com/rs/zerolog v1.26.1 // indirect
 	github.com/sirupsen/logrus v1.8.1 // indirect
 	github.com/spf13/cobra v1.4.0 // indirect
 	github.com/spf13/viper v1.12.0 // indirect

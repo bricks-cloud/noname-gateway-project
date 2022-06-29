@@ -7,5 +7,4 @@ type ServerConfiguration interface {
 	GetReadHeaderTimeout() time.Duration
 	GetWriteTimeout() time.Duration
 	GetIdleTimeout() time.Duration
-	GetRouteConfigs() []RouteConfig
 }

@@ -1,6 +1,11 @@
 package common
 
+import "time"
+
 type RouteConfig interface {
-	GetTargetURL() string
-	GetURL() string
+	GetTargetPath() string
+	GetPath() string
+	GetMethod() string
+	GetRetryTimeOut() time.Duration
+	GetPerRetryTimeout() time.Duration
 }
