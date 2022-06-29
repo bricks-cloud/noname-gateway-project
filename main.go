@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/bricks-cloud/bricks/compiler"
+	"github.com/bricks-cloud/noname-gateway-project/compiler"
 )
 
 type Service struct {
